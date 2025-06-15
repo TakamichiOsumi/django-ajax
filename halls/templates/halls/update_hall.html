@@ -1,12 +1,12 @@
 {% extends 'halls/base.html' %}
 
 {% block content %}
-<h2>Create Hall</h2>
+<h2>Update Hall</h2>
 <div class="container">
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" value="Create Hall" class="btn btn-primary">Create</button>
+    <button type="submit" value="Update Hall" class="btn btn-primary">Update</button>
   </form>
 </div>
 {% endblock %}
