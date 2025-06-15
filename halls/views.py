@@ -48,7 +48,6 @@ class UpdateHall(generic.UpdateView):
 class DeleteHall(generic.DeleteView):
     model = Hall
     template_name = 'halls/delete_hall.html'
-    fields = ['title']
     success_url = reverse_lazy('dashboard')
 
 detail_hall = DetailHall.as_view()
