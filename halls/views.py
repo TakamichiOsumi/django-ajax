@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser, Hall
@@ -14,6 +14,9 @@ class SignUp(generic.CreateView):
     form_class = SignupForm
     success_url = reverse_lazy('home')
     template_name = 'registration/signup.html'
+
+    def get_success_url(self):
+        return reverse('home')
 
 class CreateHall(generic.CreateView):
     model = Hall
