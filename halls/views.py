@@ -21,4 +21,12 @@ class CreateHall(generic.CreateView):
     template_name = 'halls/create_hall.html'
     success_url = reverse_lazy('home')
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        form.instance.user = self.request.user
+        return super().form_invalid(form)
+
 create_hall = CreateHall.as_view()
