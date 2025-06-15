@@ -24,12 +24,16 @@ from halls import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name = 'home'),
+    path('dashboard', views.dashboard, name = 'dashboard'),
     # AUTH
     path('signup/', views.SignUp.as_view(), name = 'signup'),
     path('login/', auth_views.LoginView.as_view(), name = 'login'),
     path('logout/', auth_views.LogoutView.as_view(), name = 'logout'),
     # Hall
     path('hall/create', views.create_hall, name = 'create_hall'),
+    path('hall/detail/<int:pk>/', views.detail_hall, name = 'detail_hall'),
+    # path('hall/update/<int:pk>/', views.update_hall, name = 'update_hall'),
+    # path('hall/delete/<int:pk>/', views.delete_hall, name = 'delete_hall'),
 ]
 
 urlpatterns += static(settings.STATIC_URL,
