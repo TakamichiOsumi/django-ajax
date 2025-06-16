@@ -34,6 +34,8 @@ urlpatterns = [
     path('hall/detail/<int:pk>/', views.detail_hall, name = 'detail_hall'),
     path('hall/update/<int:pk>/', views.update_hall, name = 'update_hall'),
     path('hall/delete/<int:pk>/', views.delete_hall, name = 'delete_hall'),
+    # Video
+    path('hall/addvideo/<int:pk>/', views.add_video, name = 'add_video'),
 ]
 
 urlpatterns += static(settings.STATIC_URL,

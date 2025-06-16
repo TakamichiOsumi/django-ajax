@@ -3,7 +3,7 @@ from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser, Hall
-from .forms import SignupForm
+from .forms import SignupForm, VideoForm
 
 # Create your views here.
 def home(request):
@@ -11,6 +11,12 @@ def home(request):
 
 def dashboard(request):
     return render(request, 'halls/dashboard.html')
+
+def add_video(request, pk):
+    form = VideoForm()
+    return render(request,
+                  'halls/add_video.html',
+                  { 'form' : form })
 
 class SignUp(generic.CreateView):
     model = CustomUser
