@@ -3,9 +3,19 @@
 {% block content %}
 <h2>Add Video</h2>
 <div class="container">
+
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% load widget_tweaks %}
+
+    {% for field in form %}
+    <div class="form-group {% if field.errors %} alert alert-dnager {% endif %}">
+      {{ field.errors }}
+      {{ field.label_tag }}
+      {% render_field field class="form-control" %}
+    </div>
+    {% endfor %}
+
     <button type="submit" value="Add Video" class="btn btn-primary">
       Create
     </button>
@@ -15,5 +25,6 @@
   <form>
     {{ search_form }}
   </form>
+
 </div>
 {% endblock %}
