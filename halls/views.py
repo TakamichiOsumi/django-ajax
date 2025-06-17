@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser, Hall
+from .models import CustomUser, Hall, Video
 from .forms import SignupForm, VideoForm
 
 # Create your views here.
@@ -14,6 +14,19 @@ def dashboard(request):
 
 def add_video(request, pk):
     form = VideoForm()
+
+    if request.method == 'POST':
+        filled_form = VideoForm(request.POST)
+        if filled_form.is_valid():
+            video = Video()
+            video.url = filled_form.cleaned_data['url']
+            video.title = filled_form.cleaned_data['title']
+            video.youtube_id = filled_form.cleaned_data['youtube_id']
+            video.hall = Hall.objects.get(pk = pk)
+            video.save()
+        else:
+            print("data in the form was invalid")
+
     return render(request,
                   'halls/add_video.html',
                   { 'form' : form })
