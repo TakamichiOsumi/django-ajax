@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
+from django.http import Http404
 from .models import CustomUser, Hall, Video
 from .forms import SignupForm, VideoForm, SearchForm
 
@@ -13,8 +14,13 @@ def dashboard(request):
     return render(request, 'halls/dashboard.html')
 
 def add_video(request, pk):
+
     form = VideoForm()
     search_form = SearchForm()
+    hall = Hall.objects.get(pk = pk)
+
+    if not hall.user == request.user:
+        raise Http404
 
     if request.method == 'POST':
         filled_form = VideoForm(request.POST)
@@ -23,7 +29,7 @@ def add_video(request, pk):
             video.url = filled_form.cleaned_data['url']
             video.title = filled_form.cleaned_data['title']
             video.youtube_id = filled_form.cleaned_data['youtube_id']
-            video.hall = Hall.objects.get(pk = pk)
+            video.hall = hall
             video.save()
         else:
             print("data in the form was invalid")
@@ -31,7 +37,8 @@ def add_video(request, pk):
     return render(request,
                   'halls/add_video.html',
                   { 'form' : form,
-                    'search_form' : search_form })
+                    'search_form' : search_form,
+                    'hall' : hall })
 
 class SignUp(generic.CreateView):
     model = CustomUser
