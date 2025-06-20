@@ -6,6 +6,9 @@ from django.http import Http404
 from .models import CustomUser, Hall, Video
 from .forms import SignupForm, VideoForm, SearchForm
 
+import urllib
+from django.forms.utils import ErrorList
+
 # Create your views here.
 def home(request):
     return render(request, 'halls/home.html')
@@ -27,10 +30,17 @@ def add_video(request, pk):
         if filled_form.is_valid():
             video = Video()
             video.url = filled_form.cleaned_data['url']
-            video.title = filled_form.cleaned_data['title']
-            video.youtube_id = filled_form.cleaned_data['youtube_id']
-            video.hall = hall
-            video.save()
+            parsed_url = urllib.parse.urlparse(video.url)
+            video_id = urllib.parse.parse_qs(parsed_url.query).get('v')
+            if video_id:
+                video.youtube_id = video_id
+                video.hall = hall
+                video.url = filled_form.cleaned_data['url']
+                video.title = "dummy"
+                video.save()
+                print("video record has been saved")
+            else:
+                print("video id is not valid")
         else:
             print("data in the form was invalid")
 
