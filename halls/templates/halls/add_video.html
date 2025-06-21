@@ -41,6 +41,17 @@
     $('#id_search_term').keyup(function(){
 	clearTimeout(delayTimer);
 	$('#search_results').text('Loading ... ');
+	delayTimer = setTimeout(function(){
+	    $.ajax({
+		url : '/hall/searchvideo/',
+		data : { 'search_term' : 'hello' },
+		dataType : 'json',
+		success : function(data){
+		    console.log(data)
+		    $('#search_results').text(data["srv_msg"]);
+		}
+	    });
+	}, 800);
     });
 
   </script>

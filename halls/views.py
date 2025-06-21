@@ -3,7 +3,7 @@ from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.forms.utils import ErrorList
 from .models import CustomUser, Hall, Video
 from .forms import SignupForm, VideoForm, SearchForm
@@ -49,6 +49,12 @@ def add_video(request, pk):
                   { 'form' : form,
                     'search_form' : search_form,
                     'hall' : hall })
+
+def search_video(request):
+    user_input = request.GET.get("search_term")
+    return JsonResponse({
+        'srv_msg' : f'Got {user_input} !'
+    })
 
 class SignUp(generic.CreateView):
     model = CustomUser
