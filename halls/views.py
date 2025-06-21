@@ -53,7 +53,7 @@ def add_video(request, pk):
 def search_video(request):
     user_input = request.GET.get("search_term")
     return JsonResponse({
-        'srv_msg' : f'Got {user_input} !'
+        'srv_msg' : f'Server got {user_input} !'
     })
 
 class SignUp(generic.CreateView):
