@@ -51,10 +51,15 @@ def add_video(request, pk):
                     'hall' : hall })
 
 def search_video(request):
-    user_input = request.GET.get("search_term")
-    return JsonResponse({
-        'srv_msg' : f'Server got {user_input} !'
-    })
+    # user_input = request.GET.get(
+    search_form = SearchForm(request.GET)
+    if search_form.is_valid():
+        user_input = search_form.cleaned_data["search_term"]
+        return JsonResponse({
+            'srv_msg' : f'Server got {user_input} !'
+        })
+    else:
+        return JsonResponse({ 'srv_msg' : 'Server got invalid value' })
 
 class SignUp(generic.CreateView):
     model = CustomUser
