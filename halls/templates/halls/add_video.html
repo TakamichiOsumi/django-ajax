@@ -51,7 +51,11 @@
 		    console.log(data)
 		    status = data["status"];
 		    if (status == 'OK'){
-			$('#search_results').text(data["srv_msg"][0]);
+			results = '';
+			data['srv_msg'].forEach(function(record){
+			    results += '<p>' + record + '</p>';
+			});
+			$('#search_results').append(results);
 		    }else{
 			alert('Server has invalidated the user input.')
 		    }
