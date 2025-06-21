@@ -49,7 +49,12 @@
 		dataType : 'json',
 		success : function(data){
 		    console.log(data)
-		    $('#search_results').text(data["srv_msg"]);
+		    status = data["status"];
+		    if (status == 'OK'){
+			$('#search_results').text(data["srv_msg"][0]);
+		    }else{
+			alert('Server has invalidated the user input.')
+		    }
 		}
 	    });
 	}, 800);
