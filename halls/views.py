@@ -25,7 +25,9 @@ def add_video(request, pk):
     if not hall.user == request.user:
         raise Http404
 
-    if request.method == 'POST':
+    if request.method == 'GET':
+        print("request method is GET, just return HttpResponse object")
+    elif request.method == 'POST':
         filled_form = VideoForm(request.POST)
         if filled_form.is_valid():
             video = Video()
