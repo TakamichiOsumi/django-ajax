@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views import generic
+from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.http import Http404
+from django.forms.utils import ErrorList
 from .models import CustomUser, Hall, Video
 from .forms import SignupForm, VideoForm, SearchForm
-
 import urllib
-from django.forms.utils import ErrorList
 
 # Create your views here.
 def home(request):
@@ -34,15 +34,13 @@ def add_video(request, pk):
             video.url = filled_form.cleaned_data['url']
             parsed_url = urllib.parse.urlparse(video.url)
             video_id = urllib.parse.parse_qs(parsed_url.query).get('v')
-            if video_id:
+            if video_id is not None:
                 video.youtube_id = video_id
                 video.hall = hall
                 video.url = filled_form.cleaned_data['url']
                 video.title = "dummy"
                 video.save()
-                print("video record has been saved")
-            else:
-                print("video id is not valid")
+                return redirect('detail_hall', pk)
         else:
             print("data in the form was invalid")
 
