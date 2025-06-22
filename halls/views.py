@@ -19,7 +19,6 @@ def dashboard(request):
                   { 'halls' : halls })
 
 def add_video(request, pk):
-
     form = VideoForm()
     search_form = SearchForm()
     hall = Hall.objects.get(pk = pk)
@@ -91,7 +90,7 @@ class CreateHall(generic.CreateView):
     model = Hall
     fields = ['title']
     template_name = 'halls/create_hall.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
