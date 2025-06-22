@@ -11,7 +11,10 @@ import urllib
 
 # Create your views here.
 def home(request):
-    return render(request, 'halls/home.html')
+    recent_halls = Hall.objects.all().order_by('-id')
+    return render(request, 'halls/home.html',
+                  { 'Status' : len(recent_halls) >= 1,
+                    'hall' : recent_halls[0] })
 
 def dashboard(request):
     halls = Hall.objects.filter(user = request.user)
