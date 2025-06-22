@@ -7,6 +7,10 @@
 
   {% for video in videos %}
   <p>Title : {{ video.title }}, URL : {{ video.url }}, hall : {{ video.hall.id }}</p>
+  <form method="post" action="{% url 'delete_video' video.id %}">
+    {% csrf_token %}
+    <button type="submit">Remove</button>
+  </form>
   {% endfor %}
 
 </div>

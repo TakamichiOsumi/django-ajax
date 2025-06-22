@@ -68,6 +68,15 @@ def search_video(request):
     else:
         return JsonResponse({ 'status' : 'NG' })
 
+
+def delete_video(request, pk):
+    if request.POST:
+        video = Video.objects.get(pk = pk)
+        video.delete()
+        return redirect('home')
+    else:
+        return redirect('home')
+
 class SignUp(generic.CreateView):
     model = CustomUser
     form_class = SignupForm
