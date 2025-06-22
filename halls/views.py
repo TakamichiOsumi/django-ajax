@@ -95,6 +95,18 @@ class DetailHall(generic.DetailView):
     model = Hall
     template_name = 'halls/detail_hall.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        hall_videos = []
+        all_videos = context['videos'] = Video.objects.all()
+        for video in all_videos:
+            if video.hall.pk == self.kwargs['pk']:
+                hall_videos.append(video)
+            else:
+                print(f'Skip any videos belonging to other halls (No. = {video.hall.pk})')
+        context['videos'] = hall_videos
+        return context
+
 class UpdateHall(generic.UpdateView):
     model = Hall
     template_name = 'halls/update_hall.html'

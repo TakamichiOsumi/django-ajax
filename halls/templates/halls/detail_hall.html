@@ -4,5 +4,10 @@
 <div class="container">
   <h1>{{ hall.title }}</h1>
   <h4 class="text-muted">{{ hall.user }}</h4>
+
+  {% for video in videos %}
+  <p>Title : {{ video.title }}, URL : {{ video.url }}, hall : {{ video.hall.id }}</p>
+  {% endfor %}
+
 </div>
 {% endblock %}
