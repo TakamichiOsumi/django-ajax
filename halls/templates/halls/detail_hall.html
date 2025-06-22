@@ -6,11 +6,16 @@
   <h4 class="text-muted">{{ hall.user }}</h4>
 
   {% for video in videos %}
-  <p>Title : {{ video.title }}, URL : {{ video.url }}, hall : {{ video.hall.id }}</p>
-  <form method="post" action="{% url 'delete_video' video.id %}">
-    {% csrf_token %}
-    <button type="submit">Remove</button>
-  </form>
+  <div class="col-md-4 mt-3">
+    <div class="card mb-4 shadow-sm">
+      <p class="card-text text-primary">{{ video.title }}</p>
+      <div class="card-body">{{ video.url }}</div>
+      <form method="post" action="{% url 'delete_video' video.id %}">
+	{% csrf_token %}
+	<button type="submit">Remove</button>
+      </form>
+    </div>
+  </div>
   {% endfor %}
 
 </div>

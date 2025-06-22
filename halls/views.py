@@ -68,7 +68,6 @@ def search_video(request):
     else:
         return JsonResponse({ 'status' : 'NG' })
 
-
 def delete_video(request, pk):
     if request.POST:
         video = Video.objects.get(pk = pk)
@@ -111,8 +110,6 @@ class DetailHall(generic.DetailView):
         for video in all_videos:
             if video.hall.pk == self.kwargs['pk']:
                 hall_videos.append(video)
-            else:
-                print(f'Skip any videos belonging to other halls (No. = {video.hall.pk})')
         context['videos'] = hall_videos
         return context
 
