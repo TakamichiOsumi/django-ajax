@@ -5,6 +5,8 @@
   <h1>{{ hall.title }}</h1>
   <h4 class="text-muted">{{ hall.user }}</h4>
 
+  <a href="{% url 'add_video' hall.pk %}">Add video</a>
+
   {% for video in videos %}
   <div class="col-md-4 mt-3">
     <div class="card mb-4 shadow-sm">
